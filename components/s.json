@@ -1,0 +1,90 @@
+{
+    "id": 145,
+    "name": "teste",
+    "username": "acidblotter",
+    "bio": "Afiliado do Parceirando, utilize o cupom ACID10 e ganhe 10% de desconto!",
+    "color": "rgb(4 41 64 )",
+    "affiliateId": "23365",
+    "createDate": 1695697200000,
+    "miniSiteTitle": "Meus Links",
+    "enabled": false,
+    "showNumberMinisite": true,
+    "products": [
+        {
+            "id": 1268,
+            "name": "Isca Mestre",
+            "type": "product",
+            "title": "Isca Mestre",
+            "siteId": 642,
+            "enabled": true,
+            "link": "https://demoparceirando.lojavirtualnuvem.com.br/produtos/isca-mestre/?ref=ktiiguin&utm_source=parceirando_minisiteo&utm_medium=teste",
+            "image": "https://d2r9epyceweg5n.cloudfront.net/stores/846/027/products/205027026_a6690366-d79c-4423-a362-ab217fa8efa4-4296107034238d155b16291418085707-1024-1024.jpeg"
+        },
+        {
+            "id": 1269,
+            "name": "Camise Teste",
+            "type": "product",
+            "title": "Camise Teste",
+            "siteId": 642,
+            "enabled": true,
+            "link": "https://demoparceirando.lojavirtualnuvem.com.br/produtos/camise-teste/?ref=ktiiguin&utm_source=parceirando_minisiteo&utm_medium=teste",
+            "image": "https://d2r9epyceweg5n.cloudfront.net/stores/846/027/products/2ce474a1-d175-46ae-a71d-733dfaf9e37f-7ced9e0737cffbe8f116292240665741-1024-1024.jpeg"
+        },
+        {
+            "id": 1270,
+            "name": "Camiseta Teste Branca",
+            "type": "product",
+            "title": "Camiseta Teste Branca",
+            "siteId": 642,
+            "enabled": true,
+            "link": "https://demoparceirando.lojavirtualnuvem.com.br/produtos/camiseta-teste-branca/?ref=ktiiguin&utm_source=parceirando_minisiteo&utm_medium=teste",
+            "image": "https://d2r9epyceweg5n.cloudfront.net/stores/846/027/products/9d5eec3e-1836-4dd9-8134-863600e6dfb0-f4d4d8b123bbadd8b816292240527737-1024-1024.jpeg"
+        },
+        {
+            "id": 1271,
+            "name": "Camiseta Teste Preta",
+            "type": "product",
+            "title": "Camiseta Teste Preta",
+            "siteId": 642,
+            "enabled": true,
+            "link": "https://demoparceirando.lojavirtualnuvem.com.br/produtos/camiseta-teste-preta/?ref=ktiiguin&utm_source=parceirando_minisiteo&utm_medium=teste",
+            "image": "https://d2r9epyceweg5n.cloudfront.net/stores/846/027/products/205363823_6b60955a-a2e0-4068-bbaa-c96e9bef147e-da3c75689155a8259f16292077316302-1024-1024.jpeg"
+        },
+        {
+            "id": 1272,
+            "type": "service",
+            "title": "Cadastre-se como afiliado e comece a faturar!",
+            "siteId": 642,
+            "enabled": false,
+            "link": "https://www.parceirando.com.br/affiliate/external/create/642",
+            "image": "https://parceirando-minisite-images.s3.amazonaws.com/site/642/642.png"
+        }
+    ],
+    "specialities": [
+        {
+            "id": 570,
+            "key": "bundle.speciality3",
+            "value": "Cosméticos"
+        },
+        {
+            "id": 571,
+            "key": "bundle.speciality4",
+            "value": "Entretenimento"
+        },
+        {
+            "id": 572,
+            "key": "bundle.speciality5",
+            "value": "Games"
+        }
+    ],
+    "profileImageUrl": "https://parceirando-minisite-images.s3.amazonaws.com/affiliate/acidblotter.png",
+    "facebookUrl": "https://landing.parceirando.com.br/",
+    "instagramUrl": "https://landing.parceirando.com.br/",
+    "tiktokUrl": "https://landing.parceirando.com.br/",
+    "youtubeUrl": "https://landing.parceirando.com.br/",
+    "twitterUrl": "https://landing.parceirando.com.br/",
+    "whatsApp": "https://wa.me/05541991454619?text=Olá, vim do MiniSite criado pelo Parceirando ;)",
+    "miniSiteUrl": "https://links.parceirando.com.br/minisite/?acidblotter",
+    "shortMiniSiteUrl": "https://bit.ly/3r8KXeb",
+    "siteId": 642
+}
