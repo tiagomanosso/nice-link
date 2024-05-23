@@ -1,9 +1,8 @@
-import WebLinks from '../components/WebLinks';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import Seo from '../components/Seo';
 import seoData from '../next-seo.config';
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
-import { useState } from 'react'
+import WebLinks from '../components/WebLinks';
 import { bioService } from "../components/bio-service";
 
 export default function Home() {
@@ -13,19 +12,18 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await bioService.getBio(`${router.asPath}`);//'acidblotter/642');
-        // WebLinks.setBioData(res); // set bioData to WebLinks.res;
+        const res = await bioService.getBio(`${router.asPath}`);
         setBioData(res);
         setLoading(false);
+
+        await setSeo(res);
       } catch (error) {
-        // Handle the error here
-        console.error(error);
+        setBioData([]);
       }
     };
 
     fetchData();
   }, [])
-  // console.log("DATA WEBLINK", WebLinks.bioData)
   if (isLoading) {
     return (
       <div className="loading-container">
@@ -35,19 +33,38 @@ export default function Home() {
     );
   }
 
-  // return bioData;
   const page = {
-    title: bioData?.title || 'Parceirando',
+    title: bioData?.name || 'Parceirando',
     excerpt: 'home',
     slug: '/',
-    coverImage: 'https://parceirando-minisite-images.s3.amazonaws.com/site/642/642.png'
+    coverImage: bioData?.profileImageUrl || 'https://parceirando-minisite-images.s3.amazonaws.com/site/642/642.png',
   };
-  // console.log("HOME ---")
   return (
     <>
-      <Seo page={page} />
+      <Seo page={page} seoData={seoData} />
       <WebLinks bioData={bioData} />
     </>
   )
+
+  async function setSeo(res) {
+    seoData.openGraph.title = res?.name;
+    seoData.openGraph.url = (res?.shortMiniSiteUrl ? res?.shortMiniSiteUrl : res?.miniSiteUrl) || 'https://landing.parceirando.com.br';
+    seoData.openGraph.description = res?.bio;
+
+    if (res?.specialities) {
+      const specialLinksString = res?.specialities.map(el => el.value).join(', ');
+      seoData.openGraph.keywords = specialLinksString + ', Parceirando';
+    }
+
+    if (res?.profileImageUrl) {
+      seoData.openGraph.images[0].url = res?.profileImageUrl;
+    }
+    seoData.site_name = `MiniSite - ${res?.name} - ${res?.username}`;
+    if (res?.twitterUrl) {
+      seoData.twitter.site = res?.twitterUrl;
+    } else {
+      seoData.twitter = {};
+    }
+  }
 }
 

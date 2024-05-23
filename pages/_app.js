@@ -15,11 +15,7 @@ function MyApp({ Component, pageProps }) {
     const darkMode = useDarkMode(false, { storageKey: null, onChange: null })
     const [isMounted, setIsMounted] = useState(false)
     const [bioData, setBioData] = useState(true);
-    // const theme = lightTheme
     const router = useRouter();
-    // console.log("router", router.asPath)
-    // const [bioData] = useState();
-    //console.log("bioData", bioData)
     useEffect(() => {
         setIsMounted(true);
         const fetchData = async () => {
@@ -37,12 +33,6 @@ function MyApp({ Component, pageProps }) {
     }, [])
 
     let theme = darkMode.value ? darkTheme : lightTheme;
-
-    // DEFAULT("rgb(4 41 64 )"),//#042940
-    // COLOR_1("rgb(32 110 160 / 50%)"),
-    // COLOR_2("rgb(60 91 135 / 90%)"),
-    // COLOR_3("rgb(49 32 160 / 80%)"),
-    // COLOR_4("rgb(156 135 246 / 70%)"),
 
     switch (bioData?.color) {
         case 'rgb(7 68 155 / 95%)':
