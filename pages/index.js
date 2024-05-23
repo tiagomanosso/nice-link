@@ -14,9 +14,8 @@ export default function Home() {
       try {
         const res = await bioService.getBio(`${router.asPath}`);
         setBioData(res);
-        setLoading(false);
-
         await setSeo(res);
+        setLoading(false);
       } catch (error) {
         setBioData([]);
       }
