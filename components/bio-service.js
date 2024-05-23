@@ -2,6 +2,7 @@
 export const bioService = {
     getBio: async (params) => {
         try {
+            if(!params || params === '/') return [];
             const response = await fetch(`https://parceirando.com.br/minisite${params}`, { next: { revalidate: 3600 }, cache: 'force-cache' }, {
                 method: 'GET'
             });

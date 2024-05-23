@@ -9,8 +9,8 @@ const Links = ({ bioData }) => {
   const url = bioData?.url || `https://parceirando.com.br`;
   const username = bioData?.username || `Parceirando`;
   const titleImg = false;
-  const avatarImg = bioData?.profileImageUrl || `/avatar.png`;
-  const description = bioData?.bio || `Minisite 'bio' criado pelo Parceirando, ajuda a disponbilizar links de produtos da loja para o mundo.`;
+  const avatarImg = bioData?.profileImageUrl || `https://parceirando-minisite-images.s3.amazonaws.com/site/642/642.png`;
+  const description = bioData?.bio || `O Parceirando é um Aplicativo que pode ser integrado ao seu Ecommerce em poucos cliques. Com ele você pode cooperar com Afiliados, Parceiros ou Influencers que tenham interesse em divulgar a sua loja e seus produtos em troca de comissões, tudo integrado com seu e-commerce, sem retenção de valores e sem sair do seu site.`;
   const descShow = bioData?.descShow || true;
   const subdesc = bioData?.subdesc || `Parceirando, Gestão de Afiliados`;
   const subdescShow = bioData?.subdescShow || false;
@@ -26,122 +26,63 @@ const Links = ({ bioData }) => {
 
   const p = bioData?.products || [];
   const service = {}
-  for (let i = 0; i < p.length; i++) {
-    const l = p[i];
+  links(p, allLinks, service, bioData);
 
-    if (l.type === "product") {
+  if (bioData.length === 0) {
 
-      const pr = {
-        title: l.title,
-        url: l.link,
-        type: 'other',
-        icon: l.image,
-        on: l.enabled
-      }
-
-      allLinks.push(pr);
-    }
-
-    if (l.type === "service") {
-      service.title = l.title
-      service.url = l.link
-      service.type = 'other'
-      service.image = l.image
-      service.on = l.enabled
-    }
-  }
-  const twitter = bioData?.twitterUrl
-  if (twitter) {
     allLinks.push({
-      title: 'Twitter',
-      url: twitter,
-      type: 'social',
-      icon: '/twitter.svg',
-      on: true
-    })
-  }
-  const instagram = bioData?.instagramUrl
-  if (instagram) {
-    allLinks.push({
-      title: 'Instagram',
-      url: instagram,
+      title: `Instagram`,
+      url: `https://www.instagram.com/parceirando`,
       type: 'social',
       icon: '/insta.svg',
       on: true
-    })
-  }
-  const tiktok = bioData?.tiktokUrl
-  if (tiktok) {
-    allLinks.push({
-      title: 'TikTok',
-      url: tiktok,
-      type: 'social',
-      icon: '/tiktok.svg',
-      on: true
-    })
-  }
+    });
 
-  const youtube = bioData?.youtubeUrl
-
-  if (youtube) {
-    allLinks.push({
-      title: 'Youtube',
-      url: youtube,
-      type: 'social',
-      icon: '/youtube.svg',
-      on: true
-    })
-  }
-
-
-  const facebook = bioData?.facebookUrl
-
-  if (facebook) {
     allLinks.push({
       title: 'Facebook',
-      url: facebook,
+      url: 'https://www.facebook.com/parceirando',
       type: 'social',
       icon: '/facebook.svg',
       on: true
-    })
-  }
-  const whatsApp = bioData?.whatsApp
+    });
 
-  if (whatsApp && bioData?.showNumberMinisite) {
     allLinks.push({
-      title: 'WhatsApp',
-      url: whatsApp,
+      title: 'Youtube',
+      url: 'https://www.youtube.com/@parceirando4158',
       type: 'social',
-      icon: '/whatsapp.svg',
+      icon: '/youtube.svg',
       on: true
-    })
+    });
+
+    allLinks.push({
+      title: 'Youtube',
+      url: 'https://www.youtube.com/@parceirando4158',
+      type: 'social',
+      icon: '/youtube.svg',
+      on: true
+    });
+
+    allLinks.push({
+      title: 'NuvemShop',
+      url: 'https://www.nuvemshop.com.br/loja-aplicativos-nuvem/parceirando',
+      type: 'install',
+      icon: '/use.png',
+      on: true
+    });
+
+    allLinks.push({
+      title: 'Shopify',
+      url: 'https://apps.shopify.com/parceirando',
+      type: 'install',
+      icon: '/use.png',
+      on: true
+    });
+
   }
-
-
-  //   {
-  //     title: 'Twitter',
-  //     url: 'https://twitter.com/realvjy',
-  //     type: 'social',
-  //     icon: '/twitter.svg',
-  //     on: true
-  // },
-
-  // "products": [
-  //   {
-  //       "id": 1268,
-  //       "name": "Isca Mestre",
-  //       "type": "product",
-  //       "title": "Isca Mestre",
-  //       "siteId": 642,
-  //       "enabled": true,
-  //       "link": "https://demoparceirando.lojavirtualnuvem.com.br/produtos/isca-mestre/?ref=ktiiguin&utm_source=parceirando_minisiteo&utm_medium=teste",
-  //       "image": "https://d2r9epyceweg5n.cloudfront.net/stores/846/027/products/205027026_a6690366-d79c-4423-a362-ab217fa8efa4-4296107034238d155b16291418085707-1024-1024.jpeg"
-  //   }
 
   // Description and subdescription goes here
   const descriptionText = descShow ? description : ``
   const subdescText = subdescShow ? subdesc : ``
-
 
   const newProduct = service || true; // checking for newProduct flag true false
   const newProductUrl = service.url || `https://landing.parceirando.com.br`; // get product url if available
@@ -230,7 +171,7 @@ const Links = ({ bioData }) => {
             {
               install.length > 0 ?
                 <LinkSection>
-                  <h3>{install[0].type}</h3>
+                  <h3>Instalar</h3>
                   {
                     install.map((i) => {
                       return (
@@ -626,3 +567,96 @@ const NewSection = styled.div`
       }
     }
 `
+
+function links(p, allLinks, service, bioData) {
+  for (let i = 0; i < p.length; i++) {
+    const l = p[i];
+
+    if (l.type === "product") {
+
+      const pr = {
+        title: l.title,
+        url: l.link,
+        type: 'other',
+        icon: l.image,
+        on: l.enabled
+      };
+
+      allLinks.push(pr);
+    }
+
+    if (l.type === "service") {
+      service.title = l.title;
+      service.url = l.link;
+      service.type = 'other';
+      service.image = l.image;
+      service.on = l.enabled;
+    }
+  }
+  const twitter = bioData?.twitterUrl;
+  if (twitter) {
+    allLinks.push({
+      title: 'Twitter',
+      url: twitter,
+      type: 'social',
+      icon: '/twitter.svg',
+      on: true
+    });
+  }
+  const instagram = bioData?.instagramUrl;
+  if (instagram) {
+    allLinks.push({
+      title: 'Instagram',
+      url: instagram,
+      type: 'social',
+      icon: '/insta.svg',
+      on: true
+    });
+  }
+  const tiktok = bioData?.tiktokUrl;
+  if (tiktok) {
+    allLinks.push({
+      title: 'TikTok',
+      url: tiktok,
+      type: 'social',
+      icon: '/tiktok.svg',
+      on: true
+    });
+  }
+
+  const youtube = bioData?.youtubeUrl;
+
+  if (youtube) {
+    allLinks.push({
+      title: 'Youtube',
+      url: youtube,
+      type: 'social',
+      icon: '/youtube.svg',
+      on: true
+    });
+  }
+
+
+  const facebook = bioData?.facebookUrl;
+
+  if (facebook) {
+    allLinks.push({
+      title: 'Facebook',
+      url: facebook,
+      type: 'social',
+      icon: '/facebook.svg',
+      on: true
+    });
+  }
+  const whatsApp = bioData?.whatsApp;
+
+  if (whatsApp && bioData?.showNumberMinisite) {
+    allLinks.push({
+      title: 'WhatsApp',
+      url: whatsApp,
+      type: 'social',
+      icon: '/whatsapp.svg',
+      on: true
+    });
+  }
+}
