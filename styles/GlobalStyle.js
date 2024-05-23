@@ -123,6 +123,13 @@ a{
   object-fit: cover;
 }
 
+.banner-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-position: center center;
+  object-fit: cover;
+}
+
 .loading-container {
   display: flex;
   flex-direction: column;

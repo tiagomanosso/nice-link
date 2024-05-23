@@ -102,6 +102,34 @@ const purpleDark = {
     // ...
 }
 
+const lightBlue = {
+    bg: {
+        primary: `rgb(60 91 135 / 90%)`,
+        secondary: `var(--light-white)`,
+        tertiary: 'rgba(255,255,255,0.03)',
+        border: "#EAEAEA",
+        inset: '#111111',
+        input: 'rgba(191,193,201,0.12)',
+        hover: 'linear-gradient(270deg, #131628 0%, #27141C 100%);',
+    },
+
+    text: {
+        primary: `var(--white20)`,
+        secondary: 'rgba(255,255,255,0.3)',
+        tertiary: '#a9abb6',
+        quarternary: '#6c6f7e',
+        placeholder: 'rgba(145,148,161,0.5)',
+        onPrimary: '#050505',
+        titleLinear: 'linear-gradient(90deg, #5e941c 5.71%, #68d95b 33.77%, #5e941c 61.82%, #a8ffc4 91.21%);',
+    },
+    img: {
+        filter: 'invert(1)'
+    },
+    // ...
+}
+
+
+
 const defaultTheme = {
     fontSizes: [
         '14px', // 0
@@ -140,3 +168,6 @@ export const lightTheme = { ...defaultTheme, ...light }
 export const darkTheme = { ...defaultTheme, ...dark }
 export const blueTheme = { ...defaultTheme, ...blue }
 export const purpleDarkTheme = { ...defaultTheme, ...purpleDark }
+export const lightBlueTheme = { ...defaultTheme, ...lightBlue }
+
+

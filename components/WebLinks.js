@@ -8,8 +8,8 @@ const Links = ({ bioData }) => {
   const username = bioData?.username || `Parceirando`;
   const titleImg = false;
   const avatarImg = bioData?.profileImageUrl || `https://parceirando-minisite-images.s3.amazonaws.com/site/642/642.png`;
-  const description = bioData?.bio || `O Parceirando é um Aplicativo que pode ser integrado ao seu Ecommerce em poucos cliques. Com ele você pode cooperar com Afiliados, Parceiros ou Influencers que tenham interesse em divulgar a sua loja e seus produtos em troca de comissões, tudo integrado com seu e-commerce, sem retenção de valores e sem sair do seu site.`;
-  const descShow = bioData?.descShow || true;
+  const description = bioData?.bio || ``;
+  const descShow = bioData?.bio || true;
   const subdesc = bioData?.subdesc || `Parceirando, Gestão de Afiliados`;
   const subdescShow = bioData?.subdescShow || false;
   const footerText = bioData?.footerText || `criado por`;
@@ -21,62 +21,11 @@ const Links = ({ bioData }) => {
   const avatarShape = bioData?.nftAvatar ? `nft-clipped` : `oval-clipped`
 
   let allLinks = [];
-
   const p = bioData?.products || [];
   const service = {}
   links(p, allLinks, service, bioData);
 
-  if (bioData.length === 0) {
-
-    allLinks.push({
-      title: `Instagram`,
-      url: `https://www.instagram.com/parceirando`,
-      type: 'social',
-      icon: '/insta.svg',
-      on: true
-    });
-
-    allLinks.push({
-      title: 'Facebook',
-      url: 'https://www.facebook.com/parceirando',
-      type: 'social',
-      icon: '/facebook.svg',
-      on: true
-    });
-
-    allLinks.push({
-      title: 'Youtube',
-      url: 'https://www.youtube.com/@parceirando4158',
-      type: 'social',
-      icon: '/youtube.svg',
-      on: true
-    });
-
-    allLinks.push({
-      title: 'Youtube',
-      url: 'https://www.youtube.com/@parceirando4158',
-      type: 'social',
-      icon: '/youtube.svg',
-      on: true
-    });
-
-    allLinks.push({
-      title: 'NuvemShop',
-      url: 'https://www.nuvemshop.com.br/loja-aplicativos-nuvem/parceirando',
-      type: 'install',
-      icon: '/use.png',
-      on: true
-    });
-
-    allLinks.push({
-      title: 'Shopify',
-      url: 'https://apps.shopify.com/parceirando',
-      type: 'install',
-      icon: '/use.png',
-      on: true
-    });
-
-  }
+  extractDefaults(bioData, allLinks);
 
   // Description and subdescription goes here
   const descriptionText = descShow ? description : ``
@@ -105,6 +54,11 @@ const Links = ({ bioData }) => {
   // Get data for other section
   const others = allLinks.filter((el) => {
     return el.type === "other" && el.on
+  });
+
+  // Get data for other section
+  const banners = allLinks.filter((el) => {
+    return el.type === "banner" && el.on
   });
 
   return (
@@ -165,6 +119,38 @@ const Links = ({ bioData }) => {
             </LinkSection>
             {/* Social Icon */}
 
+            {/* Other Section */}
+            {
+              others.length > 0 ?
+                <LinkSection>
+                  <h3>{bioData?.miniSiteTitle}</h3>
+                  {/* bioData?.js > newProduct == true */}
+                  {/* New Section will render once newProduct == true */}
+                  {/* End bioData?.js, You can move this section anywhere */}
+                  {
+                    others.map((i) => {
+                      return (
+                        <a href={i.url} key={i.title} target="_blank" rel="noreferrer">
+                          <LinkBox>
+                            <LinkTitle><img className="product-image" src={i.icon} /> {i.title}</LinkTitle> <NewUp />
+                          </LinkBox>
+                        </a>
+                      )
+                    })
+                  }
+                  {(newProduct) ? <NewSection>
+                    <a href={newProductUrl} target="_blank" rel="noreferrer">
+                      <img
+                        src={service?.image}
+                        className="newproduct"
+                      />
+                    </a>
+                  </NewSection> : ''
+                  }
+                </LinkSection> : ''
+            }
+
+            {/* End Other Section */}
             {/* Install Section */}
             {
               install.length > 0 ?
@@ -185,11 +171,11 @@ const Links = ({ bioData }) => {
             }
             {/* End Install Section */}
 
-            {/* NFT Section */}
+            {/* Extras Section */}
             {
               nfts.length > 0 ?
                 <LinkSection>
-                  <h3>{nfts[0].type}s</h3>
+                  <h3>Extras</h3>
                   {
                     nfts.map((i) => {
                       return (
@@ -206,38 +192,26 @@ const Links = ({ bioData }) => {
             }
             {/* End NFT Section */}
 
-            {/* Other Section */}
+            {/* Banner Section */}
             {
-              others.length > 0 ?
+              banners.length > 0 ?
                 <LinkSection>
-                  <h3>{bioData?.miniSiteTitle}</h3>
-                  {/* bioData?.js > newProduct == true */}
-                  {/* New Section will render once newProduct == true */}
-                  {/* End bioData?.js, You can move this section anywhere */}
                   {
-                    others.map((i) => {
+                    banners.map((i) => {
                       return (
                         <a href={i.url} key={i.title} target="_blank" rel="noreferrer">
-                          <LinkBox>
-                            <LinkTitle><img className="product-image" src={i.icon} /> {i.title}</LinkTitle> <NewUp />
-                          </LinkBox>
+                          <img
+                            src={banners[0]?.image}
+                            className="banner-img"
+                          />
                         </a>
                       )
                     })
                   }
-                </LinkSection> : ''
+                </LinkSection>
+                : ''
             }
-            {(newProduct) ? <NewSection>
-              <a href={newProductUrl} target="_blank" rel="noreferrer">
-                <img
-                  src={service?.image}
-                  className="newproduct"
-                />
-              </a>
-            </NewSection> : ''
-            }
-            {/* End Other Section */}
-
+            {/* End NFT Section */}
           </WebLinkWrap>
           {/* End Weblinks */}
         </TopPart>
@@ -565,6 +539,60 @@ const NewSection = styled.div`
       }
     }
 `
+
+function extractDefaults(bioData, allLinks) {
+  if (bioData.length === 0) {
+    bioData.bio = `O Parceirando é um Aplicativo que pode ser integrado ao seu Ecommerce em poucos cliques. Com ele você pode cooperar com Afiliados, Parceiros ou Influencers que tenham interesse em divulgar a sua loja e seus produtos em troca de comissões, tudo integrado com seu e-commerce, sem retenção de valores e sem sair do seu site.`;
+    allLinks.push({
+      title: `Instagram`,
+      url: `https://www.instagram.com/parceirando`,
+      type: 'social',
+      icon: '/insta.svg',
+      on: true
+    });
+
+    allLinks.push({
+      title: 'Facebook',
+      url: 'https://www.facebook.com/parceirando',
+      type: 'social',
+      icon: '/facebook.svg',
+      on: true
+    });
+
+    allLinks.push({
+      title: 'Youtube',
+      url: 'https://www.youtube.com/@parceirando4158',
+      type: 'social',
+      icon: '/youtube.svg',
+      on: true
+    });
+
+    allLinks.push({
+      title: 'NuvemShop',
+      url: 'https://www.nuvemshop.com.br/loja-aplicativos-nuvem/parceirando',
+      type: 'install',
+      icon: '/use.png',
+      on: true
+    });
+
+    allLinks.push({
+      title: 'Shopify',
+      url: 'https://apps.shopify.com/parceirando',
+      type: 'install',
+      icon: '/use.png',
+      on: true
+    });
+
+    allLinks.push({
+      title: 'Cadastre-se como Afiliado.',
+      url: 'https://parceirando.com.br/global/home#register',
+      type: 'nft',
+      icon: '/opensea.svg',
+      on: true
+    });
+
+  }
+}
 
 function links(p, allLinks, service, bioData) {
   for (let i = 0; i < p.length; i++) {

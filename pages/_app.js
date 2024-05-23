@@ -7,7 +7,7 @@ import useDarkMode from "use-dark-mode";
 import Layout from "../components/Layout";
 import SEO from '../next-seo.config';
 import GlobalStyle from "../styles/GlobalStyle";
-import { darkTheme, lightTheme, blueTheme, purpleDarkTheme } from "../styles/theme.config";
+import { darkTheme, lightTheme, blueTheme, purpleDarkTheme, lightBlueTheme } from "../styles/theme.config";
 import { bioService } from '../components/bio-service';
 import { useRouter } from "next/router";
 
@@ -40,6 +40,9 @@ function MyApp({ Component, pageProps }) {
             break;
         case 'rgb(4 41 64 )':
             theme = blueTheme;
+            break;
+        case 'rgb(60 91 135 / 90%)':
+            theme = lightBlueTheme;
             break;
         case 'rgb(156 135 246 / 70%)':
             theme = purpleDarkTheme;
