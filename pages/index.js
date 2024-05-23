@@ -9,9 +9,11 @@ export default function Home() {
   const [bioData, setBioData] = useState(true);
   const [isLoading, setLoading] = useState(true);
   const router = useRouter();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const res = await bioService.getBio(`${router.asPath}`);
         setBioData(res);
         await setSeo(res);
@@ -27,7 +29,7 @@ export default function Home() {
     return (
       <div className="loading-container">
         <div className="loading-spinner"></div>
-        <p>Loading...</p>
+        <p>Carregando...</p>
       </div>
     );
   }
@@ -47,7 +49,7 @@ export default function Home() {
 
   async function setSeo(res) {
     seoData.openGraph.title = res?.name;
-    seoData.openGraph.url = (res?.shortMiniSiteUrl ? res?.shortMiniSiteUrl : res?.miniSiteUrl) || 'https://landing.parceirando.com.br';
+    seoData.openGraph.url = (res?.shortMiniSiteUrl ? res?.shortMiniSiteUrl : res?.miniSiteUrl) || `https://l.payhero.cloud/${res?.username}/${res?.siteId}`;
     seoData.openGraph.description = res?.bio;
 
     if (res?.specialities) {
@@ -67,3 +69,6 @@ export default function Home() {
   }
 }
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}

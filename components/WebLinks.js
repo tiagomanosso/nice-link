@@ -1,6 +1,4 @@
 import styled from "styled-components";
-// import bioData from "../data/BioData";
-// import allLinks from "../data/LinksData";
 import { Container } from "./ReusableStyles";
 import { HexIcon, NewUp, OvalIcon } from './icons';
 

@@ -94,7 +94,7 @@ const purpleDark = {
         quarternary: '#6c6f7e',
         placeholder: 'rgba(145,148,161,0.5)',
         onPrimary: '#050505',
-        titleLinear: 'linear-gradient(90deg, #3a1370 5.71%, #60187d 33.77%, #9357ab 61.82%, #5e941c 91.21%);'
+        titleLinear: 'linear-gradient(90deg, #3a1370 5.71%, #60187d 33.77%, #703587 61.82%);'
     },
     img: {
         filter: 'invert(1)'
