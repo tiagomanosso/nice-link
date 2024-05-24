@@ -37,7 +37,7 @@ export const getServerSideProps = async (_ctx) => {
           }
         ],
         title: `MiniSite -  ${bData?.name} - ${bData?.username}`,
-        url: (bData?.shortMiniSiteUrl ? bData?.shortMiniSiteUrl : bData?.miniSiteUrl) || `https://l.payhero.cloud/${bData?.username}/${bData?.siteId}`,
+        url: (bData?.shortMiniSiteUrl ? bData?.shortMiniSiteUrl : bData?.miniSiteUrl) || `https://links.parceirando.com.br/${bData?.username}/${bData?.siteId}`,
         description: bData?.bio,
       },
       site_name: `MiniSite - ${bData?.name ? bData?.name : 'Parceirando'} - ${bData?.username ? bData?.username : ''}`,
