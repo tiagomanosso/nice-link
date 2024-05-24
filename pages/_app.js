@@ -36,25 +36,26 @@ function MyApp({ Component, pageProps }) {
     let theme = darkMode.value ? darkTheme : lightTheme;
 
     if (isLoading) {
-        return (
-            <>
-                <GoogleAnalytics />
-                <ThemeProvider theme={theme} >
-                    <Head>
-                        <meta content="width=device-width, initial-scale=1" name="viewport" />
-                        <link rel="icon" href="/favicon.png" />
-                    </Head>
-                    <GlobalStyle />
+        return <></>;
+        // return (
+        //     <>
+        //         <GoogleAnalytics />
+        //         <ThemeProvider theme={theme} >
+        //             <Head>
+        //                 <meta content="width=device-width, initial-scale=1" name="viewport" />
+        //                 <link rel="icon" href="/favicon.png" />
+        //             </Head>
+        //             <GlobalStyle />
 
-                    <Layout>
-                        <div className="loading-container">
-                            <div className="loading-spinner"></div>
-                            <p>Carregando...</p>
-                        </div>
-                    </Layout>
-                </ThemeProvider>
-            </>
-        );
+        //             <Layout>
+        //                 <div className="loading-container">
+        //                     <div className="loading-spinner"></div>
+        //                     <p>Carregando...</p>
+        //                 </div>
+        //             </Layout>
+        //         </ThemeProvider>
+        //     </>
+        // );
     }
 
 
