@@ -10,12 +10,22 @@ const nextConfig = {
         // ssr and displayName are configured by default
         styledComponents: true,
     },
+    logging: {
+        fetches: {
+            fullUrl: true,
+        },
+    },
     optimizeFonts: false, async rewrites() {
         return [
             {
                 source: '/:path*/:path*',
                 // source: '/(links|lnk|l)',
                 destination: '/'
+            },
+            {
+                source: '/minisite',
+                // source: '/(links|lnk|l)',
+                destination: '/aa'
             }
         ]
     },
