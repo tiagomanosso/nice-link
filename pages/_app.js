@@ -27,7 +27,7 @@ function MyApp({ Component, pageProps }) {
         // return <></>;
         return (
             <>
-                <GoogleAnalytics />
+                <GoogleAnalytics trackPageViews />
                 <ThemeProvider theme={theme} >
                     <Head>
                         <meta content="width=device-width, initial-scale=1" name="viewport" />
@@ -92,7 +92,7 @@ function MyApp({ Component, pageProps }) {
 
     return (
         <>
-            <GoogleAnalytics />
+            <GoogleAnalytics trackPageViews />
             <ThemeProvider theme={theme} >
                 <Head>
                     <meta content="width=device-width, initial-scale=1" name="viewport" />

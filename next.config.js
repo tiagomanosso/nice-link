@@ -25,7 +25,7 @@ const nextConfig = {
             {
                 source: '/minisite',
                 // source: '/(links|lnk|l)',
-                destination: '/aa'
+                destination: '/'
             }
         ]
     },
