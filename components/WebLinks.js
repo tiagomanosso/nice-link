@@ -25,7 +25,7 @@ const Links = ({ bioData }) => {
   const service = {}
   links(p, allLinks, service, bioData);
 
-  extractDefaults(bioData, allLinks);
+  extractDefaults(name, bioData, allLinks);
 
   // Description and subdescription goes here
   const descriptionText = descShow ? description : ``
@@ -540,10 +540,11 @@ const NewSection = styled.div`
     }
 `
 
-function extractDefaults(bioData, allLinks) {
-  if (bioData?.length === 0) {
-    bioData.name = `Parceirando`;
+async function extractDefaults(name, bioData, allLinks) {
+
+  if (name === 'Parceirando') {
     bioData.bio = `O Parceirando é um Aplicativo que pode ser integrado ao seu Ecommerce em poucos cliques. Com ele você pode cooperar com Afiliados, Parceiros ou Influencers que tenham interesse em divulgar a sua loja e seus produtos em troca de comissões, tudo integrado com seu e-commerce, sem retenção de valores e sem sair do seu site.`;
+
     allLinks.push({
       title: `Instagram`,
       url: `https://www.instagram.com/parceirando`,
