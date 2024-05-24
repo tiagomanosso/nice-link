@@ -32,16 +32,32 @@ function MyApp({ Component, pageProps }) {
         fetchData();
     }, [])
 
+
+    let theme = darkMode.value ? darkTheme : lightTheme;
+
     if (isLoading) {
         return (
-            <div className="loading-container">
-                <div className="loading-spinner"></div>
-                <p>Carregando...</p>
-            </div>
+            <>
+                <GoogleAnalytics />
+                <ThemeProvider theme={theme} >
+                    <Head>
+                        <meta content="width=device-width, initial-scale=1" name="viewport" />
+                        <link rel="icon" href="/favicon.png" />
+                    </Head>
+                    <GlobalStyle />
+
+                    <Layout>
+                        <div className="loading-container">
+                            <div className="loading-spinner"></div>
+                            <p>Carregando...</p>
+                        </div>
+                    </Layout>
+                </ThemeProvider>
+            </>
         );
     }
 
-    let theme = darkMode.value ? darkTheme : lightTheme;
+
 
     switch (bioData?.color) {
         case 'rgb(7 68 155 / 95%)':
@@ -62,6 +78,7 @@ function MyApp({ Component, pageProps }) {
         default:
             break;
     }
+
 
     return (
         <>
@@ -107,10 +124,6 @@ function MyApp({ Component, pageProps }) {
     )
 }
 export default MyApp
-
-function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-}
 
 async function createSeoData(res) {
 
