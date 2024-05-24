@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps }) {
             try {
                 const res = await bioService.getBio(`${router.asPath}`);
                 setBioData(res);
-                setSeo(await createSeoData(res));
+                setSeo(createSeoData(res));
                 setLoading(false);
             } catch (error) {
                 setBioData({});
