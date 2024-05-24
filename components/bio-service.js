@@ -3,7 +3,7 @@ import { urlUtil } from "./url-util";
 export const bioService = {
     getBio: async (params) => {
         try {
-            if (!params || params === '/') return [];
+            // if (!params || params === '/') return [];
             params = await urlUtil.extract(params);
             const response = await fetch(`https://parceirando.com.br/minisite${params}`, { next: { revalidate: 3600 }, cache: 'force-cache' }, {
                 method: 'GET'

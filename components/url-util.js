@@ -7,7 +7,6 @@ export const urlUtil = {
                 const username = params.split('&')[0].split('?')[1];
                 const store = params.split('=')[1];
                 params = `/${username}/${store}`
-
             } else if (params.includes('?')) {
                 const username = params.split('&')[0]
                 const store = params.split('=')[1];
@@ -15,7 +14,6 @@ export const urlUtil = {
             } else if (params.includes('http')) {
                 const url = new URL(params);
                 const username = url.pathname;
-                const store = url.searchParams.get('store');
                 params = `${username}`
             }
             return params;
