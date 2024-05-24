@@ -15,8 +15,8 @@ const nextConfig = {
             {
                 source: '/:path*/:path*',
                 // source: '/(links|lnk|l)',
-                destination: '/',
-            },
+                destination: '/'
+            }
         ]
     },
 }

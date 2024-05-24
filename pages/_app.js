@@ -1,64 +1,74 @@
 import { DefaultSeo } from 'next-seo';
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { GoogleAnalytics } from "nextjs-google-analytics";
 import { useEffect, useState } from "react";
 import { ThemeProvider } from "styled-components";
 import useDarkMode from "use-dark-mode";
 import Layout from "../components/Layout";
-import { bioService } from '../components/bio-service';
 import GlobalStyle from "../styles/GlobalStyle";
 import { blueTheme, darkTheme, lightBlueTheme, lightTheme, purpleDarkTheme } from "../styles/theme.config";
 
 function MyApp({ Component, pageProps }) {
     const darkMode = useDarkMode(false, { storageKey: null, onChange: null })
     const [isMounted, setIsMounted] = useState(false)
-    const [bioData, setBioData] = useState();
-    const [seoData, setSeo] = useState();
+    const [bioData] = useState(pageProps.bioData);
+    const [seoData] = useState(pageProps.seoData);
     const [isLoading, setLoading] = useState(true);
-    const router = useRouter();
     useEffect(() => {
+        if (bioData && bioData?.name !== '') {
+            setLoading(false);
+        }
         setIsMounted(true);
-        const fetchData = async () => {
-            try {
-                const res = await bioService.getBio(`${router.asPath}`);
-                setBioData(res);
-                setSeo(createSeoData(res));
-                setLoading(false);
-            } catch (error) {
-                setBioData({});
-            }
-        };
-        fetchData();
     }, [])
-
 
     let theme = darkMode.value ? darkTheme : lightTheme;
 
     if (isLoading) {
-        return <></>;
-        // return (
-        //     <>
-        //         <GoogleAnalytics />
-        //         <ThemeProvider theme={theme} >
-        //             <Head>
-        //                 <meta content="width=device-width, initial-scale=1" name="viewport" />
-        //                 <link rel="icon" href="/favicon.png" />
-        //             </Head>
-        //             <GlobalStyle />
+        // return <></>;
+        return (
+            <>
+                <GoogleAnalytics />
+                <ThemeProvider theme={theme} >
+                    <Head>
+                        <meta content="width=device-width, initial-scale=1" name="viewport" />
+                        <link rel="icon" href="/favicon.png" />
+                    </Head>
+                    <GlobalStyle />
 
-        //             <Layout>
-        //                 <div className="loading-container">
-        //                     <div className="loading-spinner"></div>
-        //                     <p>Carregando...</p>
-        //                 </div>
-        //             </Layout>
-        //         </ThemeProvider>
-        //     </>
-        // );
+                    <Layout>
+                        <DefaultSeo
+                            canonical={seoData?.openGraph?.url}
+                            {...seoData}
+                            additionalMetaTags={[{
+                                name: 'keywords',
+                                content: seoData?.openGraph?.keywords,
+                            },
+                            {
+                                name: 'twitter:image',
+                                content: seoData?.openGraph?.images[0].url
+                            },
+                            {
+                                name: 'twitter:title',
+                                content: seoData?.openGraph?.title,
+                            },
+                            {
+                                name: 'twitter:description',
+                                content: seoData?.openGraph?.description,
+                            },
+                            {
+                                httpEquiv: 'x-ua-compatible',
+                                content: 'IE=edge; chrome=1'
+                            }]}
+                        />
+                        <div className="loading-container">
+                            <div className="loading-spinner"></div>
+                            <p>Carregando...</p>
+                        </div>
+                    </Layout>
+                </ThemeProvider>
+            </>
+        );
     }
-
-
 
     switch (bioData?.color) {
         case 'rgb(7 68 155 / 95%)':
@@ -79,7 +89,6 @@ function MyApp({ Component, pageProps }) {
         default:
             break;
     }
-
 
     return (
         <>
@@ -125,31 +134,3 @@ function MyApp({ Component, pageProps }) {
     )
 }
 export default MyApp
-
-async function createSeoData(res) {
-
-    let seoData = {
-        openGraph: {
-            images: [
-                {
-                    url: res?.profileImageUrl
-                }
-            ],
-            title: res?.name,
-            url: (res?.shortMiniSiteUrl ? res?.shortMiniSiteUrl : res?.miniSiteUrl) || `https://l.payhero.cloud/${res?.username}/${res?.siteId}`,
-            description: res?.bio,
-        },
-        site_name: `MiniSite - ${res?.name} - ${res?.username}`,
-        twitter: {}
-    };
-
-    if (res?.specialities) {
-        const specialLinksString = res?.specialities.map(el => el.value).join(', ');
-        seoData.openGraph.keywords = specialLinksString + ', Parceirando';
-    }
-
-    if (res?.twitterUrl) {
-        seoData.twitter.site = res?.twitterUrl;
-    }
-    return seoData;
-}
