@@ -16,8 +16,10 @@ export const urlUtil = {
                 const username = url.pathname;
                 params = `${username}`
             }
+            console.log("EXTRACTED: ", params)
             return params;
         } catch (error) {
+            console.log("EXTRACTED ERRROR: ", params)
             return '/'
         }
     }

@@ -22,6 +22,7 @@ export default function Home({ bioData, seoData }) {
 
 export const getServerSideProps = async (_ctx) => {
   const pa = _ctx.req.url || _ctx.req.headers.referer;
+  console.log("PA: ", pa);
   const bData = await bioService.getBio(`${pa}`);
   if (bData && bData?.name) {
     let sData = {
