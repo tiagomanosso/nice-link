@@ -20,7 +20,7 @@ export default function Seo({ page, seoData }) {
                         {
                             width: 1200,
                             height: 630,
-                            url: `${seoData?.openGraph?.images[0].url}`,
+                            url: `${seoData?.openGraph?.images[0]?.url}`,
                             alt: `${title}`,
                         },
                     ],

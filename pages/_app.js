@@ -1,36 +1,45 @@
 import { DefaultSeo } from 'next-seo';
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { GoogleAnalytics } from "nextjs-google-analytics";
 import { useEffect, useState } from "react";
 import { ThemeProvider } from "styled-components";
 import useDarkMode from "use-dark-mode";
 import Layout from "../components/Layout";
-import SEO from '../next-seo.config';
-import GlobalStyle from "../styles/GlobalStyle";
-import { darkTheme, lightTheme, blueTheme, purpleDarkTheme, lightBlueTheme } from "../styles/theme.config";
 import { bioService } from '../components/bio-service';
-import { useRouter } from "next/router";
+import GlobalStyle from "../styles/GlobalStyle";
+import { blueTheme, darkTheme, lightBlueTheme, lightTheme, purpleDarkTheme } from "../styles/theme.config";
 
 function MyApp({ Component, pageProps }) {
     const darkMode = useDarkMode(false, { storageKey: null, onChange: null })
     const [isMounted, setIsMounted] = useState(false)
-    const [bioData, setBioData] = useState(true);
+    const [bioData, setBioData] = useState();
+    const [seoData, setSeo] = useState();
+    const [isLoading, setLoading] = useState(true);
     const router = useRouter();
     useEffect(() => {
         setIsMounted(true);
         const fetchData = async () => {
             try {
-                const res = await bioService.getBio(`${router.asPath}`);//'acidblotter/642');
-                // WebLinks.setBioData(res); // set bioData to WebLinks.res;
+                const res = await bioService.getBio(`${router.asPath}`);
                 setBioData(res);
+                setSeo(await createSeoData(res));
+                setLoading(false);
             } catch (error) {
-                // Handle the error here
-                setBioData([]);
+                setBioData({});
             }
         };
-
         fetchData();
     }, [])
+
+    if (isLoading) {
+        return (
+            <div className="loading-container">
+                <div className="loading-spinner"></div>
+                <p>Carregando...</p>
+            </div>
+        );
+    }
 
     let theme = darkMode.value ? darkTheme : lightTheme;
 
@@ -57,7 +66,7 @@ function MyApp({ Component, pageProps }) {
     return (
         <>
             <GoogleAnalytics />
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={theme} >
                 <Head>
                     <meta content="width=device-width, initial-scale=1" name="viewport" />
                     <link rel="icon" href="/favicon.png" />
@@ -67,30 +76,30 @@ function MyApp({ Component, pageProps }) {
 
                 <Layout>
                     <DefaultSeo
-                        canonical={SEO.openGraph.url}
-                        {...SEO}
+                        canonical={seoData?.openGraph?.url}
+                        {...seoData}
                         additionalMetaTags={[{
                             name: 'keywords',
-                            content: SEO.openGraph.keywords,
+                            content: seoData?.openGraph?.keywords,
                         },
                         {
                             name: 'twitter:image',
-                            content: SEO.openGraph.images[0].url
+                            content: seoData?.openGraph?.images[0].url
                         },
                         {
                             name: 'twitter:title',
-                            content: SEO.openGraph.title,
+                            content: seoData?.openGraph?.title,
                         },
                         {
                             name: 'twitter:description',
-                            content: SEO.openGraph.description,
+                            content: seoData?.openGraph?.description,
                         },
                         {
                             httpEquiv: 'x-ua-compatible',
                             content: 'IE=edge; chrome=1'
                         }]}
                     />
-                    {isMounted && <Component {...pageProps} />}
+                    {isMounted && <Component {...pageProps} bioData={bioData} seoData={seoData} />}
                 </Layout>
             </ThemeProvider>
         </>
@@ -98,3 +107,35 @@ function MyApp({ Component, pageProps }) {
     )
 }
 export default MyApp
+
+function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function createSeoData(res) {
+
+    let seoData = {
+        openGraph: {
+            images: [
+                {
+                    url: res?.profileImageUrl
+                }
+            ],
+            title: res?.name,
+            url: (res?.shortMiniSiteUrl ? res?.shortMiniSiteUrl : res?.miniSiteUrl) || `https://l.payhero.cloud/${res?.username}/${res?.siteId}`,
+            description: res?.bio,
+        },
+        site_name: `MiniSite - ${res?.name} - ${res?.username}`,
+        twitter: {}
+    };
+
+    if (res?.specialities) {
+        const specialLinksString = res?.specialities.map(el => el.value).join(', ');
+        seoData.openGraph.keywords = specialLinksString + ', Parceirando';
+    }
+
+    if (res?.twitterUrl) {
+        seoData.twitter.site = res?.twitterUrl;
+    }
+    return seoData;
+}
