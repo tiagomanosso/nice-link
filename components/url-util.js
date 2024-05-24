@@ -3,7 +3,6 @@ import { URL } from "url";
 export const urlUtil = {
     extract: (params) => {
         try {
-            params = '/minisite?caparceirando=&store=642'
             if (params.includes('minisite')) {
                 const i = params.split('&')
                 console.log("i : ", i)
