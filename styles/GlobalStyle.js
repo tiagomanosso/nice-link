@@ -121,7 +121,9 @@ a{
   width: calc(25% - 6px) !important;
   object-position: center center;
   object-fit: cover;
+  
 }
+
 
 .banner-img {
   width: 100% !important;

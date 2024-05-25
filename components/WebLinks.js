@@ -452,7 +452,7 @@ const LinkBox = styled.div`
     padding: 15px 15px;
     border-radius: 12px;
     margin: 8px 18px;
-    border: 1px solid ${({ theme }) => theme.bg.secondary};
+    border: 3px solid ${({ theme }) => theme.bg.secondary};
     flex-direction: row;
     display: flex;
     align-items: center;
@@ -526,7 +526,7 @@ const LinkTitle = styled.div`
 `
 
 const NewSection = styled.div`
-  display: flex;
+  // display: flex;
   align-items: center;
   padding: 16px 20px;
     img{
