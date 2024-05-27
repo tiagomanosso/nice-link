@@ -3,19 +3,16 @@ import { URL } from "url";
 export const urlUtil = {
     extract: (params) => {
         try {
+            console.log("params : ", params)
             if (params.includes('minisite')) {
                 const i = params.split('&')
-                console.log("i : ", i)
                 const u = i[0].split('?')
-                console.log("u : ", u)
                 let store = i[1].split('=')[1];
                 let username = '';
                 if (i[0].includes('store')) {
                     const is = i[0].split('?')
                     store = is[1].split('=')[1];
-                    console.log("SPLIT store: ", store)
                     i[1].includes('=') ? username = i[1].split('=')[0] : username = i[1]
-                    console.log("SPLIT username: ", username)
                     params = `/${username}/${store}`
                 } else {
                     if (u[1].includes('=')) {

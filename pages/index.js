@@ -22,7 +22,6 @@ export default function Home({ bioData, seoData }) {
 
 export const getServerSideProps = async (_ctx) => {
   const pa = _ctx.req.url || _ctx.req.headers.referer;
-  console.log("PA: ", pa);
   const bData = await bioService.getBio(`${pa}`);
   if (bData && bData?.name) {
     let sData = {
@@ -36,7 +35,7 @@ export const getServerSideProps = async (_ctx) => {
             url: bData?.profileImageUrl
           }
         ],
-        title: `MiniSite -  ${bData?.name} - ${bData?.username}`,
+        title: `MiniSite -  ${bData?.name} - ${bData?.username}` + bData.site?.nomeFantasia ? ` - ${bData.site?.nomeFantasia}` : '',
         url: (bData?.shortMiniSiteUrl ? bData?.shortMiniSiteUrl : bData?.miniSiteUrl) || `https://links.parceirando.com.br/${bData?.username}/${bData?.siteId}`,
         description: bData?.bio,
       },

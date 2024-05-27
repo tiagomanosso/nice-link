@@ -452,7 +452,7 @@ const LinkBox = styled.div`
     padding: 15px 15px;
     border-radius: 12px;
     margin: 8px 18px;
-    border: 3px solid ${({ theme }) => theme.bg.secondary};
+    border: 2px solid ${({ theme }) => theme.bg.secondary};
     flex-direction: row;
     display: flex;
     align-items: center;
