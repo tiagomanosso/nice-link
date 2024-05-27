@@ -23,6 +23,9 @@ export default function Home({ bioData, seoData }) {
 export const getServerSideProps = async (_ctx) => {
   const pa = _ctx.req.url || _ctx.req.headers.referer;
   const bData = await bioService.getBio(`${pa}`);
+
+  const fantasyName = bData.site?.nomeFantasia ? " - " + bData.site?.nomeFantasia : '';
+  const title = `MiniSite -  ${bData?.name} - ${bData?.username}${fantasyName}`;
   if (bData && bData?.name) {
     let sData = {
       openGraph: {
@@ -32,14 +35,14 @@ export const getServerSideProps = async (_ctx) => {
           {
             width: 1200,
             height: 630,
-            url: bData?.profileImageUrl
+            url: bData?.profileImageUrl ? bData?.profileImageUrl : `https://parceirando-minisite-images.s3.amazonaws.com/site/642/642.png`,
           }
         ],
-        title: `MiniSite -  ${bData?.name} - ${bData?.username}` + bData.site?.nomeFantasia ? ` - ${bData.site?.nomeFantasia}` : '',
+        title: `${title}`,
         url: (bData?.shortMiniSiteUrl ? bData?.shortMiniSiteUrl : bData?.miniSiteUrl) || `https://links.parceirando.com.br/${bData?.username}/${bData?.siteId}`,
         description: bData?.bio,
       },
-      site_name: `MiniSite - ${bData?.name ? bData?.name : 'Parceirando'} - ${bData?.username ? bData?.username : ''}`,
+      site_name: `${title}`,
       twitter: {}
     };
 
