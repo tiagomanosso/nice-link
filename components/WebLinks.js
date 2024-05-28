@@ -4,7 +4,7 @@ import { HexIcon, NewUp, OvalIcon } from './icons';
 
 const Links = ({ bioData }) => {
   const name = bioData?.name || `Parceirando`;
-  const url = bioData?.url || `https://parceirando.com.br`;
+  const url = bioData?.url || `https://landing.parceirando.com.br`;
   const username = bioData?.username || `Parceirando`;
   const titleImg = false;
   const avatarImg = bioData?.profileImageUrl || `https://parceirando-minisite-images.s3.amazonaws.com/site/642/642.png`;
@@ -87,7 +87,7 @@ const Links = ({ bioData }) => {
               }
               {/* if your remove username from data it will not appear */}
               {
-                username ? <h3><a href={`${url}`}>{username}</a></h3> : ''
+                username ? <h3><a href={`${url}`} target="_blank">{username}</a></h3> : ''
               }
             </Title>
           </LinkHeader>
