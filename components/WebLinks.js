@@ -31,7 +31,7 @@ const Links = ({ bioData }) => {
   const descriptionText = descShow ? description : ``
   const subdescText = subdescShow ? subdesc : ``
 
-  const newProduct = service || true; // checking for newProduct flag true false
+  const newProduct = service && service.on || false; // checking for newProduct flag true false
   const newProductUrl = service.url || `https://landing.parceirando.com.br`; // get product url if available
 
 
