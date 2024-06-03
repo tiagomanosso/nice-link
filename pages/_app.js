@@ -89,7 +89,6 @@ function MyApp({ Component, pageProps }) {
         default:
             break;
     }
-
     return (
         <>
             <GoogleAnalytics trackPageViews />

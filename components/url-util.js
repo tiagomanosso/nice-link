@@ -19,8 +19,6 @@ export const urlUtil = {
                         username = u[1].replaceAll('=', '')
                         params = `/${username}/${store}`
                     } else {
-                        // const username = params.split('&')[0].split('?')[1];
-                        // const store = params.split('=')[1];
                         username = params.split('&')[1]
                         if (username.includes('=')) {
                             console.log("SPLIT: ", username)
@@ -30,9 +28,16 @@ export const urlUtil = {
                     }
                 }
             } else if (params.includes('?')) {
-                const username = params.split('&')[0]
-                const store = params.split('=')[1];
-                params = `/${username.slice(2)}/${store}`
+                if (params.includes('utm_campaign') || params.includes('utm_content') || params.includes('utm_source') || params.includes('utm_medium')) {
+                    const p = params.split('?')
+                    const username = p[0].split('/')[1];
+                    const store = p[0].split('/')[2];
+                    params = `/${username}/${store}`
+                } else {
+                    const username = params.split('&')[0]
+                    const store = params.split('=')[1];
+                    params = `/${username.slice(2)}/${store}`
+                }
             } else if (params.includes('http')) {
                 const url = new URL(params);
                 const username = url.pathname;

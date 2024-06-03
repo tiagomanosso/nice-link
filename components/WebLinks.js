@@ -61,6 +61,11 @@ const Links = ({ bioData }) => {
     return el.type === "banner" && el.on
   });
 
+  const coupons = allLinks.filter((el) => {
+    return el.type === "coupon" && el.on
+  });
+
+
   return (
     <LinkWrapper>
       <LinkContainer>
@@ -170,6 +175,26 @@ const Links = ({ bioData }) => {
                 </LinkSection> : ''
             }
             {/* End Install Section */}
+
+            {/* Coupon Section */}
+            {
+              coupons.length > 0 ?
+                <LinkSection>
+                  <h3>Cupons</h3>
+                  {
+                    coupons.map((i) => {
+                      return (
+                        <a href={i.url} key={i.title} target="_blank" rel="noreferrer" >
+                          <LinkBox>
+                            <LinkTitle><img src={i.icon} style={{ filter: 'var(--img)' }} /> {i.title}</LinkTitle> <NewUp />
+                          </LinkBox>
+                        </a>
+                      )
+                    })
+                  }
+                </LinkSection> : ''
+            }
+            {/* End Coupon Section */}
 
             {/* Extras Section */}
             {
@@ -597,6 +622,17 @@ async function extractDefaults(name, bioData, allLinks) {
 }
 
 function links(p, allLinks, service, bioData) {
+  // if (bioData?.coupon) {
+  //   const pr = {
+  //     title: bioData?.coupon,
+  //     url: 'https://landing.parceirando.com.br',
+  //     type: 'coupon',
+  //     icon: '/use.png',
+  //     on: 'true'
+  //   };
+  //   allLinks.push(pr);
+  // }
+
   for (let i = 0; i < p.length; i++) {
     const l = p[i];
 
@@ -621,6 +657,8 @@ function links(p, allLinks, service, bioData) {
       service.on = l.enabled;
     }
   }
+
+
   const twitter = bioData?.twitterUrl;
   if (twitter) {
     allLinks.push({
