@@ -26,7 +26,7 @@ export const getServerSideProps = async (_ctx) => {
 
   const fantasyName = bData.site?.nomeFantasia ? " - " + bData.site?.nomeFantasia : '';
   const title = `MiniSite -  ${bData?.name} - ${bData?.username}${fantasyName}`;
-  if (bData && bData?.name) {
+  if (bData && bData?.name && bData?.enabled) {
     let sData = {
       openGraph: {
         type: 'website',
