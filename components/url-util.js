@@ -66,6 +66,9 @@ export const urlUtil = {
             console.log("EXTRACTED: ", params)
             return params;
         } catch (error) {
+            if(params.includes('minisite')){
+                return params
+            }
             console.log("EXTRACTED ERRROR: ", params)
             return '/'
         }
