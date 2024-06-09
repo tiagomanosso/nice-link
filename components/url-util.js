@@ -5,11 +5,11 @@ export const urlUtil = {
         try {
             console.log("params : ", params)
             if (params.includes('minisite')) {
+
                 let username = '';
                 let store = '';
                 if (params.includes('fbclid')) {
                     params = params.split('?')[1]
-                    console.log("params 2: ", params.split('&')[2])
                     if (params.split('&')[1].includes('=')) {
                         username = params.split('&')[1].slice(0, -1)
                     }
@@ -17,11 +17,9 @@ export const urlUtil = {
                     if (params.split('&')[2].includes('=')) {
                         store = params.split('&')[2].split('=')[1]
                     }
-                    console.log("username : ", username)
-                    console.log("store : ", store)
                     params = `/${username}/${store}`
                 } else {
-                    console.log("i : ", i)
+                    const i = params.split('&')
                     const u = i[0].split('?')
                     store = i[1].split('=')[1];
 
