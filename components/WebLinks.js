@@ -100,7 +100,7 @@ const Links = ({ bioData }) => {
           utm_content: 'parceirando',
           site_id: bioData?.siteId || 0,
           page_title: item.title || 'Parceirando',
-          page_url: item.url || 'https://links.parceirando.com.br',
+          page_url: item?.url ? item.url : item || 'https://links.parceirando.com.br',
           page_path: window.location.pathname || 'https://links.parceirando.com.br',
           page_referrer: document.referrer || 'direct',
           page_location: window.location.href,
@@ -120,14 +120,14 @@ const Links = ({ bioData }) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(googleParams),
-      }).then((response) => {})
-        .catch((error) => {});
+      }).then((response) => { })
+        .catch((error) => { });
     } catch (error) {
       console.error('Error:', error);
     }
     window.open(item.url, '_blank');
   };
-  let serviceUrl = { url : newProductUrl ? newProductUrl : 'https://landing.parceirando.com.br' };
+  let serviceUrl = { url: newProductUrl ? newProductUrl : 'https://landing.parceirando.com.br' };
   return (
     <LinkWrapper>
       <LinkContainer>
@@ -174,7 +174,7 @@ const Links = ({ bioData }) => {
                 {
                   social.map((i) => {
                     return (
-                      <a href={i.url} key={i.title} target="_blank" rel="noreferrer" onClick={(e) => handleClick(e, i)}>
+                      <a key={i.title} target="_blank" rel="noreferrer" onClick={(e) => handleClick(e, i)}>
                         <LinkBox className="socialIcon">
                           <img src={i.icon} style={{ filter: 'var(--img)' }} />
                         </LinkBox>
@@ -197,7 +197,7 @@ const Links = ({ bioData }) => {
                   {
                     others.map((i) => {
                       return (
-                        <a href={i.url} key={i.title} target="_blank" rel="noreferrer" onClick={(e) => handleClick(e, i)}>
+                        <a key={i.title} target="_blank" rel="noreferrer" onClick={(e) => handleClick(e, i)}>
                           <LinkBox>
                             <LinkTitle><img className="product-image" src={i.icon} /> {i.title}</LinkTitle> <NewUp />
                           </LinkBox>
@@ -206,8 +206,8 @@ const Links = ({ bioData }) => {
                     })
                   }
                   {(newProduct) ? <NewSection>
-                    
-                    <a href={newProductUrl} target="_blank" rel="noreferrer" onClick={(e) => handleClick(e, serviceUrl)}>
+
+                    <a target="_blank" rel="noreferrer" onClick={(e) => handleClick(e, serviceUrl)}>
                       <img
                         src={service?.image}
                         className="newproduct"
@@ -227,7 +227,7 @@ const Links = ({ bioData }) => {
                   {
                     install.map((i) => {
                       return (
-                        <a href={i} key={i.title} target="_blank" rel="noreferrer" onClick={(e) => handleClick(e, i)}>
+                        <a key={i.title} target="_blank" rel="noreferrer" onClick={(e) => handleClick(e, i)}>
                           <LinkBox>
                             <LinkTitle><img src={i.icon} style={{ filter: 'var(--img)' }} /> {i.title}</LinkTitle> <NewUp />
                           </LinkBox>
@@ -247,7 +247,7 @@ const Links = ({ bioData }) => {
                   {
                     coupons.map((i) => {
                       return (
-                        <a href={i} key={i.title} target="_blank" rel="noreferrer" onClick={(e) => handleClick(e, i)}>
+                        <a key={i.title} target="_blank" rel="noreferrer" onClick={(e) => handleClick(e, i)}>
                           <LinkBox>
                             <LinkTitle><img src={i.icon} style={{ filter: 'var(--img)' }} /> {i.title}</LinkTitle> <NewUp />
                           </LinkBox>
@@ -267,7 +267,7 @@ const Links = ({ bioData }) => {
                   {
                     nfts.map((i) => {
                       return (
-                        <a href={i} key={i.title} target="_blank" rel="noreferrer" onClick={(e) => handleClick(e, i)}>
+                        <a key={i.title} target="_blank" rel="noreferrer" onClick={(e) => handleClick(e, i)}>
                           <LinkBox>
                             <LinkTitle><img src={i.icon} style={{ filter: 'var(--img)' }} /> {i.title}</LinkTitle> <NewUp />
                           </LinkBox>
@@ -287,7 +287,7 @@ const Links = ({ bioData }) => {
                   {
                     banners.map((i) => {
                       return (
-                        <a href={i.url} key={i.title} target="_blank" rel="noreferrer" onClick={(e) => handleClick(e, i)}>
+                        <a key={i.title} target="_blank" rel="noreferrer" onClick={(e) => handleClick(e, i)}>
                           <img
                             src={banners[0]?.image}
                             className="banner-img"
