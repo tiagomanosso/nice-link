@@ -1,6 +1,6 @@
 import { DefaultSeo } from 'next-seo';
 import Head from "next/head";
-import { GoogleAnalytics } from "nextjs-google-analytics";
+import { GoogleAnalytics, usePageViews } from "nextjs-google-analytics";
 import { useEffect, useState } from "react";
 import { ThemeProvider } from "styled-components";
 import useDarkMode from "use-dark-mode";
@@ -14,6 +14,9 @@ function MyApp({ Component, pageProps }) {
     const [bioData] = useState(pageProps.bioData);
     const [seoData] = useState(pageProps.seoData);
     const [isLoading, setLoading] = useState(true);
+
+    const gaMeasurementId = process.env.NEXT_GOOGLE_MEASUREMENT_ID || 'G-C4JYBPG87K';
+    usePageViews({ gaMeasurementId });
     useEffect(() => {
         if (bioData && bioData?.name !== '') {
             setLoading(false);
@@ -92,11 +95,11 @@ function MyApp({ Component, pageProps }) {
     return (
         <>
             <GoogleAnalytics trackPageViews />
+            <GoogleAnalytics gaMeasurementId={gaMeasurementId} />
             <ThemeProvider theme={theme} >
                 <Head>
                     <meta content="width=device-width, initial-scale=1" name="viewport" />
                     <link rel="icon" href="/favicon.png" />
-
                 </Head>
                 <GlobalStyle />
 

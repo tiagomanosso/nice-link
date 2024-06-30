@@ -115,7 +115,7 @@ const Links = ({ bioData }) => {
     }
     try {
       //https://links.parceirando.com.br/api/google-analytics
-      fetch('http://links.parceirando.com.br/api/google-analytics', {
+      fetch('https://links.parceirando.com.br/api/google-analytics', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
