@@ -65,6 +65,68 @@ const Links = ({ bioData }) => {
     return el.type === "coupon" && el.on
   });
 
+  function getGaCookie() {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith('_ga')) {
+        return cookie.split('=')[1];
+      }
+    }
+    return null;
+  }
+
+  function extractGaValue(cookieValue) {
+    if (!cookieValue) {
+      return 'ga:unknown';
+    }
+    const parts = cookieValue.split('.');
+    if (parts.length >= 4) {
+      return parts[2] + '.' + parts[3];
+    }
+  }
+
+  const handleClick = (e, item) => {
+    const gaCookieValue = getGaCookie();
+    const gaValue = extractGaValue(gaCookieValue);
+    const googleParams = {
+      client_id: gaValue,
+      events: [{
+        name: "custom_event",
+        params: {
+          utm_source: document.referrer || 'direct',
+          utm_medium: bioData?.name || 'Parceirando',
+          utm_campaign: 'parceirando_minisite',
+          utm_content: 'parceirando',
+          site_id: bioData?.siteId || 0,
+          page_title: item.title || 'Parceirando',
+          page_url: item.url || 'https://links.parceirando.com.br',
+          page_path: window.location.pathname || 'https://links.parceirando.com.br',
+          page_referrer: document.referrer || 'direct',
+          page_location: window.location.href,
+          page_host: window.location.hostname,
+          click_name: item.title || 'Parceirando',
+          click_url: item.url || 'https://links.parceirando.com.br',
+          affiliate_id: bioData?.id || 'parceirando',
+          affiliate_name: bioData?.name || 'Parceirando',
+          affiliate_ref: bioData?.ref || 'parceirando',
+        }
+      }],
+    }
+    try {
+      fetch('httsp://links.parceirando.com.br/api/google-analytics', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(googleParams),
+      }).then((response) => {})
+        .catch((error) => {});
+    } catch (error) {
+      console.error('Error:', error);
+    }
+    window.open(item.url, '_blank');
+  };
 
   return (
     <LinkWrapper>
@@ -92,7 +154,7 @@ const Links = ({ bioData }) => {
               }
               {/* if your remove username from data it will not appear */}
               {
-                username ? <h3><a href={`${url}`} target="_blank">{username}</a></h3> : ''
+                username ? <h3><a href={`${url}`} target="_blank" onClick={(e) => handleClick(e, url)}>{username}</a></h3> : ''
               }
             </Title>
           </LinkHeader>
@@ -112,7 +174,7 @@ const Links = ({ bioData }) => {
                 {
                   social.map((i) => {
                     return (
-                      <a href={i.url} key={i.title} target="_blank" rel="noreferrer">
+                      <a href={i.url} key={i.title} target="_blank" rel="noreferrer" onClick={(e) => handleClick(e, i)}>
                         <LinkBox className="socialIcon">
                           <img src={i.icon} style={{ filter: 'var(--img)' }} />
                         </LinkBox>
@@ -135,7 +197,7 @@ const Links = ({ bioData }) => {
                   {
                     others.map((i) => {
                       return (
-                        <a href={i.url} key={i.title} target="_blank" rel="noreferrer">
+                        <a href={i.url} key={i.title} target="_blank" rel="noreferrer" onClick={(e) => handleClick(e, i)}>
                           <LinkBox>
                             <LinkTitle><img className="product-image" src={i.icon} /> {i.title}</LinkTitle> <NewUp />
                           </LinkBox>
@@ -144,7 +206,7 @@ const Links = ({ bioData }) => {
                     })
                   }
                   {(newProduct) ? <NewSection>
-                    <a href={newProductUrl} target="_blank" rel="noreferrer">
+                    <a href={newProductUrl} target="_blank" rel="noreferrer" onClick={(e) => handleClick(e, newProductUrl)}>
                       <img
                         src={service?.image}
                         className="newproduct"
@@ -164,7 +226,7 @@ const Links = ({ bioData }) => {
                   {
                     install.map((i) => {
                       return (
-                        <a href={i.url} key={i.title} target="_blank" rel="noreferrer">
+                        <a href={i} key={i.title} target="_blank" rel="noreferrer" onClick={(e) => handleClick(e, i)}>
                           <LinkBox>
                             <LinkTitle><img src={i.icon} style={{ filter: 'var(--img)' }} /> {i.title}</LinkTitle> <NewUp />
                           </LinkBox>
@@ -184,7 +246,7 @@ const Links = ({ bioData }) => {
                   {
                     coupons.map((i) => {
                       return (
-                        <a href={i.url} key={i.title} target="_blank" rel="noreferrer" >
+                        <a href={i} key={i.title} target="_blank" rel="noreferrer" onClick={(e) => handleClick(e, i)}>
                           <LinkBox>
                             <LinkTitle><img src={i.icon} style={{ filter: 'var(--img)' }} /> {i.title}</LinkTitle> <NewUp />
                           </LinkBox>
@@ -204,7 +266,7 @@ const Links = ({ bioData }) => {
                   {
                     nfts.map((i) => {
                       return (
-                        <a href={i.url} key={i.title} target="_blank" rel="noreferrer">
+                        <a href={i} key={i.title} target="_blank" rel="noreferrer" onClick={(e) => handleClick(e, i)}>
                           <LinkBox>
                             <LinkTitle><img src={i.icon} style={{ filter: 'var(--img)' }} /> {i.title}</LinkTitle> <NewUp />
                           </LinkBox>
@@ -224,7 +286,7 @@ const Links = ({ bioData }) => {
                   {
                     banners.map((i) => {
                       return (
-                        <a href={i.url} key={i.title} target="_blank" rel="noreferrer">
+                        <a href={i.url} key={i.title} target="_blank" rel="noreferrer" onClick={(e) => handleClick(e, i)}>
                           <img
                             src={banners[0]?.image}
                             className="banner-img"
@@ -242,7 +304,7 @@ const Links = ({ bioData }) => {
         </TopPart>
         <BottomPart>
           <LinkFoot>
-            <h4>{footerText} <a href={authorURL}>{author}</a></h4>
+            <h4>{footerText} <a href={authorURL}>{author} onClick={(e) => handleClick(e, i)}</a></h4>
           </LinkFoot>
         </BottomPart>
 
