@@ -127,7 +127,7 @@ const Links = ({ bioData }) => {
     }
     window.open(item.url, '_blank');
   };
-
+  let serviceUrl = { url : newProductUrl ? newProductUrl : 'https://landing.parceirando.com.br' };
   return (
     <LinkWrapper>
       <LinkContainer>
@@ -206,7 +206,8 @@ const Links = ({ bioData }) => {
                     })
                   }
                   {(newProduct) ? <NewSection>
-                    <a href={newProductUrl} target="_blank" rel="noreferrer" onClick={(e) => handleClick(e, newProductUrl)}>
+                    
+                    <a href={newProductUrl} target="_blank" rel="noreferrer" onClick={(e) => handleClick(e, serviceUrl)}>
                       <img
                         src={service?.image}
                         className="newproduct"
@@ -304,7 +305,7 @@ const Links = ({ bioData }) => {
         </TopPart>
         <BottomPart>
           <LinkFoot>
-            <h4>{footerText} <a href={authorURL}>{author} onClick={(e) => handleClick(e, i)}</a></h4>
+            <h4>{footerText} <a href={authorURL} target="_blank" rel="noreferrer">{author} </a></h4>
           </LinkFoot>
         </BottomPart>
 
