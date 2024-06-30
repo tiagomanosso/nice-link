@@ -7,6 +7,8 @@ import useDarkMode from "use-dark-mode";
 import Layout from "../components/Layout";
 import GlobalStyle from "../styles/GlobalStyle";
 import { blueTheme, darkTheme, lightBlueTheme, lightTheme, purpleDarkTheme } from "../styles/theme.config";
+import Script from 'next/script';
+
 
 function MyApp({ Component, pageProps }) {
     const darkMode = useDarkMode(false, { storageKey: null, onChange: null })
@@ -97,8 +99,20 @@ function MyApp({ Component, pageProps }) {
     }
     return (
         <>
-            <GoogleAnalytics trackPageViews gaMeasurementId={gaMeasurementIdMinisite}    />
-            <GoogleAnalytics gaMeasurementId={gaMeasurementId} trackPageViews />
+            <GoogleAnalytics trackPageViews gaMeasurementId={gaMeasurementIdMinisite} />
+            <Script
+                src="https://www.googletagmanager.com/gtag/js?id="gaMeasurementId 
+                strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+                {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){window.dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', '${gaMeasurementId}');
+                `}
+            </Script>
             <ThemeProvider theme={theme} >
                 <Head>
                     <meta content="width=device-width, initial-scale=1" name="viewport" />
