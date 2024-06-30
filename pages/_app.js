@@ -95,7 +95,7 @@ function MyApp({ Component, pageProps }) {
     return (
         <>
             <GoogleAnalytics trackPageViews />
-            <GoogleAnalytics gaMeasurementId={gaMeasurementId} />
+            <GoogleAnalytics gaMeasurementId={gaMeasurementId} trackPageViews />
             <ThemeProvider theme={theme} >
                 <Head>
                     <meta content="width=device-width, initial-scale=1" name="viewport" />
