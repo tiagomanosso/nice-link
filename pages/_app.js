@@ -16,6 +16,9 @@ function MyApp({ Component, pageProps }) {
     const [isLoading, setLoading] = useState(true);
 
     const gaMeasurementId = process.env.NEXT_GOOGLE_MEASUREMENT_ID || 'G-C4JYBPG87K';
+    const gaMeasurementIdMinisite = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-WY9WHDZGQQ';
+
+
     usePageViews({ gaMeasurementId });
     useEffect(() => {
         if (bioData && bioData?.name !== '') {
@@ -94,7 +97,7 @@ function MyApp({ Component, pageProps }) {
     }
     return (
         <>
-            <GoogleAnalytics trackPageViews />
+            <GoogleAnalytics trackPageViews gaMeasurementId={gaMeasurementIdMinisite}    />
             <GoogleAnalytics gaMeasurementId={gaMeasurementId} trackPageViews />
             <ThemeProvider theme={theme} >
                 <Head>
