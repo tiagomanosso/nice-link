@@ -1,6 +1,6 @@
 
-const apiSecret = process.env.REACT_APP_GOOGLE_API_SECRET || 'gYYm5nB4R7eiUDNGqPiwKw';
-const measurementId = process.env.REACT_APP_GOOGLE_MEASUREMENT_ID || 'G-C4JYBPG87K';
+const apiSecret = process.env.NEXT_GOOGLE_API_SECRET || 'gYYm5nB4R7eiUDNGqPiwKw';
+const measurementId = process.env.NEXT_GOOGLE_MEASUREMENT_ID || 'G-C4JYBPG87K';
 
 export const googleService = {
     send: async (params) => {
